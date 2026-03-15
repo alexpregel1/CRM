@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disponibilidad DJ · SanderTone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0a0c;
+            --card: #111114;
+            --border: #222228;
+            --border2: #2e2e36;
+            --text: #f0f0f2;
+            --muted: #888894;
+            --accent: #4684A0;
+            --accent2: #5a9ab8;
+
+            --amber: #F59E0B;
+            --amber-bg: rgba(245, 158, 11, .10);
+            --amber-bd: rgba(245, 158, 11, .25);
+
+            --violet: #A78BFA;
+            --violet-bg: rgba(167, 139, 250, .10);
+            --violet-bd: rgba(167, 139, 250, .25);
+
+            --cyan: #22D3EE;
+            --cyan-bg: rgba(34, 211, 238, .10);
+            --cyan-bd: rgba(34, 211, 238, .25);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem 1rem 4rem;
+        }
+
+        /* ── Logo / Header ── */
+        .logo-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        /* ── Card ── */
+        .card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: .01em;
+            margin-bottom: .25rem;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: .875rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        /* ── DJ Selector ── */
+        .dj-label {
+            font-size: .7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--muted);
+            margin-bottom: .6rem;
+        }
+
+        .dj-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: .6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dj-btn {
+            position: relative;
+            padding: .7rem .5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border2);
+            background: transparent;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .875rem;
+            font-weight: 600;
+            color: var(--muted);
+            transition: all .15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dj-btn .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dj-btn:hover {
+            border-color: var(--border2);
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .dj-btn.felipe {
+            --c: var(--amber);
+            --cbg: var(--amber-bg);
+            --cbd: var(--amber-bd);
+        }
+
+        .dj-btn.diego {
+            --c: var(--violet);
+            --cbg: var(--violet-bg);
+            --cbd: var(--violet-bd);
+        }
+
+        .dj-btn.peche {
+            --c: var(--cyan);
+            --cbg: var(--cyan-bg);
+            --cbd: var(--cyan-bd);
+        }
+
+        /* New DJs colors to match Tailwind definitions */
+        .dj-btn.luis {
+            --c: #fb7185;
+            --cbg: rgba(251, 113, 133, .10);
+            --cbd: rgba(251, 113, 133, .20);
+        }
+
+        /* rose-400 */
+        .dj-btn.juan-cavero {
+            --c: #34d399;
+            --cbg: rgba(52, 211, 153, .10);
+            --cbd: rgba(52, 211, 153, .20);
+        }
+
+        /* emerald-400 */
+        .dj-btn.ichi {
+            --c: #60a5fa;
+            --cbg: rgba(96, 165, 250, .10);
+            --cbd: rgba(96, 165, 250, .20);
+        }
+
+        /* blue-400 */
+        .dj-btn.raiboc {
+            --c: #e879f9;
+            --cbg: rgba(232, 121, 249, .10);
+            --cbd: rgba(232, 121, 249, .20);
+        }
+
+        /* fuchsia-400 */
+        .dj-btn.los-pregel {
+            --c: #fb923c;
+            --cbg: rgba(251, 146, 60, .10);
+            --cbd: rgba(251, 146, 60, .20);
+        }
+
+        /* orange-400 */
+        .dj-btn.ramon {
+            --c: #818cf8;
+            --cbg: rgba(129, 140, 248, .10);
+            --cbd: rgba(129, 140, 248, .20);
+        }
+
+        /* indigo-400 */
+        .dj-btn.topete {
+            --c: #f472b6;
+            --cbg: rgba(244, 114, 182, .10);
+            --cbd: rgba(244, 114, 182, .20);
+        }
+
+        /* pink-400 */
+
+        .dj-btn .dot {
+            background: var(--c, var(--muted));
+        }
+
+        .dj-btn.active {
+            border-color: var(--cbd);
+            background: var(--cbg);
+            color: var(--c);
+        }
+
+        /* ── Form fields ── */
+        .field {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: .7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--muted);
+            margin-bottom: .45rem;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            background: #18181c;
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            padding: .65rem .9rem;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: .925rem;
+            outline: none;
+            transition: border-color .15s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="date"]:focus,
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--accent);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(.6);
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* ── Date pair ── */
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .75rem;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 1.5rem 0;
+        }
+
+        /* ── Submit ── */
+        .btn-submit {
+            width: 100%;
+            padding: .85rem;
+            border-radius: 10px;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .15s, opacity .15s;
+            letter-spacing: .01em;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--accent2);
+        }
+
+        .btn-submit:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        /* ── Status messages ── */
+        .status-msg {
+            margin-top: 1rem;
+            padding: .75rem 1rem;
+            border-radius: 8px;
+            font-size: .875rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .status-msg.success {
+            background: rgba(34, 197, 94, .1);
+            border: 1px solid rgba(34, 197, 94, .25);
+            color: #4ade80;
+            display: block;
+        }
+
+        .status-msg.error {
+            background: rgba(239, 68, 68, .1);
+            border: 1px solid rgba(239, 68, 68, .25);
+            color: #f87171;
+            display: block;
+        }
+
+        /* ── Footer note ── */
+        .footer-note {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: .75rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .date-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Logo -->
+    <div class="logo-row">
+        <img src="/gilcasound_logo.png" alt="GilcaSound" class="logo-img">
+    </div>
+
+    <!-- Card -->
+    <div class="card">
+        <h1>Registro de Disponibilidad</h1>
+        <p class="subtitle">
+            Indica los fines de semana en los que <strong>no estás disponible</strong> para que podamos actualizar el
+            calendario de eventos.
+        </p>
+
+        <form id="form" novalidate>
+
+            <!-- DJ selector -->
+            <div class="field">
+                <p class="dj-label">¿Quién eres?</p>
+                <div class="dj-grid">
+                    <button type="button" class="dj-btn felipe" data-dj="Felipe" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Felipe
+                    </button>
+                    <button type="button" class="dj-btn diego" data-dj="Diego" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Diego
+                    </button>
+                    <button type="button" class="dj-btn peche" data-dj="Peche" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Peche
+                    </button>
+                    <button type="button" class="dj-btn luis" data-dj="Luis" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Luis
+                    </button>
+                    <button type="button" class="dj-btn juan-cavero" data-dj="Juan Cavero" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Juan Cavero
+                    </button>
+                    <button type="button" class="dj-btn ichi" data-dj="Ichi" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Ichi
+                    </button>
+                    <button type="button" class="dj-btn raiboc" data-dj="Raiboc" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Raiboc
+                    </button>
+                    <button type="button" class="dj-btn los-pregel" data-dj="Los Pregel" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Los Pregel
+                    </button>
+                    <button type="button" class="dj-btn ramon" data-dj="Ramón" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Ramón
+                    </button>
+                    <button type="button" class="dj-btn topete" data-dj="Topete" onclick="selectDJ(this)">
+                        <span class="dot"></span>
+                        Topete
+                    </button>
+                </div>
+                <input type="hidden" id="dj" name="dj" required />
+            </div>
+
+            <hr class="divider" />
+
+            <!-- Date range -->
+            <div class="field">
+                <label>Fecha(s) no disponible</label>
+                <div class="date-row">
+                    <div>
+                        <label style="font-size:.65rem; margin-bottom:.3rem;">Desde</label>
+                        <input type="date" id="fecha_inicio" name="fecha_inicio" required />
+                    </div>
+                    <div>
+                        <label style="font-size:.65rem; margin-bottom:.3rem;">Hasta (opcional)</label>
+                        <input type="date" id="fecha_fin" name="fecha_fin" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivo -->
+            <div class="field">
+                <label for="motivo">Motivo (opcional)</label>
+                <textarea id="motivo" name="motivo" placeholder="Ej: Viaje, evento personal, vacaciones..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btn-submit">
+                Registrar no disponibilidad
+            </button>
+
+            <div class="status-msg" id="status-msg"></div>
+        </form>
+    </div>
+
+    <p class="footer-note">SanderTone Events · Formulario interno para DJs</p>
+
+    <script>
+        let selectedDJs = [];
+
+        function selectDJ(btn) {
+            const dj = btn.dataset.dj;
+            const index = selectedDJs.indexOf(dj);
+
+            if (index > -1) {
+                // Remove if already selected
+                selectedDJs.splice(index, 1);
+                btn.classList.remove('active');
+            } else {
+                // Add if not selected
+                selectedDJs.push(dj);
+                btn.classList.add('active');
+            }
+
+            document.getElementById('dj').value = selectedDJs.join(', ');
+        }
+
+        // Set today as minimum for dates
+        const todayStr = new Date().toISOString().split('T')[0];
+        document.getElementById('fecha_inicio').min = todayStr;
+        document.getElementById('fecha_fin').min = todayStr;
+
+        document.getElementById('fecha_inicio').addEventListener('change', function () {
+            document.getElementById('fecha_fin').min = this.value;
+        });
+
+        document.getElementById('form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const dj = document.getElementById('dj').value;
+            const fecha_inicio = document.getElementById('fecha_inicio').value;
+            const fecha_fin = document.getElementById('fecha_fin').value || fecha_inicio;
+            const motivo = document.getElementById('motivo').value.trim();
+
+            const msg = document.getElementById('status-msg');
+            const btn = document.getElementById('btn-submit');
+
+            msg.className = 'status-msg';
+            msg.textContent = '';
+
+            // Validation
+            if (!dj) {
+                msg.className = 'status-msg error';
+                msg.textContent = '⚠ Por favor selecciona tu nombre.';
+                return;
+            }
+            if (!fecha_inicio) {
+                msg.className = 'status-msg error';
+                msg.textContent = '⚠ Por favor indica la fecha de inicio.';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+
+            try {
+                const res = await fetch('/api/dj-disponibilidad', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dj, fecha_inicio, fecha_fin, motivo }),
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    msg.className = 'status-msg success';
+                    msg.textContent = `✓ Registrado correctamente. Se ha guardado la disponibilidad.`;
+                    document.getElementById('form').reset();
+                    document.querySelectorAll('.dj-btn').forEach(b => b.classList.remove('active'));
+                    selectedDJs = [];
+                    btn.textContent = '¡Registrado!';
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.textContent = 'Registrar no disponibilidad';
+                    }, 3000);
+                } else {
+                    throw new Error(data.error || 'Error desconocido');
+                }
+            } catch (err) {
+                msg.className = 'status-msg error';
+                msg.textContent = '✕ Error al guardar: ' + err.message;
+                btn.disabled = false;
+                btn.textContent = 'Registrar no disponibilidad';
+            }
+        });
+    </script>
+</body>
+
+</html>
