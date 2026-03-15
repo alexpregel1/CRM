@@ -162,6 +162,12 @@ export default function AgendaPage() {
 
     const userName = userFirstName;
 
+    // Mapeo: si el usuario es Alex o Erik (Pregel), se les asignan los eventos de "Los Pregel"
+    const PREGEL_NAMES = ["alex", "erik", "alexpregel1"];
+    const userDJName = PREGEL_NAMES.includes(userName.toLowerCase())
+        ? "Los Pregel"
+        : userName;
+
     // 1. Next Event for current user (Wedding/Gig where user is assigned)
     const nextUserEvent = events
         .filter(ev => {
@@ -179,8 +185,8 @@ export default function AgendaPage() {
                 title.includes("FIESTA") ||
                 title.includes("SESSION");
 
-            // Strictly check if the assigned user is in the detected list
-            const isUserAssigned = ev.djs_detectados?.some(dj => dj.toLowerCase() === userName.toLowerCase());
+            // Check against mapped DJ name (Alex/Erik → Los Pregel)
+            const isUserAssigned = ev.djs_detectados?.some(dj => dj.toLowerCase() === userDJName.toLowerCase());
 
             return isWork && isUserAssigned && d >= today && ev.status === "confirmado";
         })
